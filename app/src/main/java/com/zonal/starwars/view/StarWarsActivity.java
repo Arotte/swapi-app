@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.zonal.starwars.R;
 import com.zonal.starwars.model.Planet;
@@ -25,6 +26,7 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
     private StarWarsPresenter starWarsPresenter;
     private RecyclerView recyclerView;
     private StarWarsAdapter starWarsAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
         recyclerView = findViewById(R.id.recyclerViewPlanets);
         setAdapter();
         setSortButton();
+        setSwipeRefresh();
 
         starWarsPresenter = new StarWarsPresenterImpl(this, this);
     }
@@ -43,11 +46,14 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
         starWarsAdapter = new StarWarsAdapter(this);
         starWarsAdapter.setClickListener(this);
         recyclerView.setAdapter(starWarsAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
     @Override
     public void setPlanets(List<Planet> planetList) {
         starWarsAdapter.setPlanetList(planetList);
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -63,6 +69,16 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
             @Override
             public void onClick(View v) {
                 starWarsAdapter.sortByName();
+            }
+        });
+    }
+    
+    private void setSwipeRefresh() {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                starWarsPresenter.refreshPlanets();
             }
         });
     }

@@ -24,8 +24,6 @@ import java.util.List;
 
 
 public class StarWarsPresenterImpl implements StarWarsPresenter {
-
-
     private StarWarsView starWarsView;
     private Activity activity;
     private String API_URL = "https://swapi.dev/api/planets";
@@ -66,6 +64,10 @@ public class StarWarsPresenterImpl implements StarWarsPresenter {
             }
         };
         thread.start();
+    }
+
+    public void refreshPlanets() {
+        getPlanets(API_URL);
     }
 
     // =============================================================================================
