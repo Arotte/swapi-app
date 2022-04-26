@@ -36,9 +36,11 @@ public class StarWarsPresenterImpl implements StarWarsPresenter {
         getPlanets(API_URL);
     }
 
+    // =============================================================================================
+    // API Interaction methods
+    // =============================================================================================
 
     private void getPlanets(final String urlName) {
-
         Thread thread =  new Thread() {
             @Override
             public void run() {
@@ -55,7 +57,7 @@ public class StarWarsPresenterImpl implements StarWarsPresenter {
                     }
 
                     JSONObject jsonObject = new JSONObject(planets.toString());
-                    parseResponse(jsonObject);
+                    parsePlanetListResponse(jsonObject);
 
                     in.close();
                 } catch (IOException | JSONException e) {
@@ -63,17 +65,17 @@ public class StarWarsPresenterImpl implements StarWarsPresenter {
                 }
             }
         };
-
         thread.start();
-
     }
 
-    private void parseResponse(final JSONObject response) {
+    // =============================================================================================
+    // Response Parsers
+    // =============================================================================================
 
+    private void parsePlanetListResponse(final JSONObject response) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-
                 DaoSession daoSession = ((StarWarsApp) activity.getApplication()).getDaoSession();
                 try {
                     JSONArray jsonArrayPlanets = response.getJSONArray("results");
@@ -82,14 +84,12 @@ public class StarWarsPresenterImpl implements StarWarsPresenter {
                     //loop through all planets
                     for (int i = 0; i < jsonArrayPlanets.length()-1; i++) {
                         JSONObject planetJson = jsonArrayPlanets.getJSONObject(i);
-                        Planet planet = new Planet(planetJson.getString("name"), planetJson.getString("population"));
+                        Planet planet = new Planet(planetJson);
                         planetList.add(planet);
                         daoSession.insertOrReplace(planet);
                     }
 
                     starWarsView.setPlanets(planetList);
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

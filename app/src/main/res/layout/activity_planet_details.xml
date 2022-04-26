@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".planet_details.PlanetDetailsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
+            <TextView
+                android:layout_marginTop="35dp"
+                android:id="@+id/tv_planet_details_planet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Planet Name"
+                android:textSize="40sp"
+                android:textColor="@color/textPrimary"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Population"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_population"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="20 212 333"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Climate"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_climate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Arid"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gravity"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_gravity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1 standard"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terrain"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_terrain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Desert"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Orbital Period"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_orbital_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="304"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diameter"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_diameter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10 123"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rotational Period"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_rotational_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="23"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Surface Water"
+                android:textSize="15sp"
+                android:textColor="@color/textSecondary"/>
+            <TextView
+                android:id="@+id/tv_planet_details_surface_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/textPrimary"
+                android:textSize="30sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

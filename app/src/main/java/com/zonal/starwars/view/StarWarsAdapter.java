@@ -25,6 +25,7 @@ public class StarWarsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private List<Planet> planetList = new ArrayList<>();
     private final LayoutInflater mLayoutInflater;
+    private StarWarsAdapter.ItemClickListener mItemClickListener;
 
     StarWarsAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
@@ -32,12 +33,8 @@ public class StarWarsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
         final View lBasketableView = mLayoutInflater.inflate(R.layout.list_item_planet, parent, false);
         final StarWarsViewHolder starWarsViewHolder = new StarWarsViewHolder(lBasketableView);
-
-
         return starWarsViewHolder;
     }
 
@@ -53,33 +50,40 @@ public class StarWarsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return planetList.size();
     }
 
-
-    public void setPlanetList(List<Planet> items) {
-
-        planetList.clear();
-        planetList.addAll(items);
-Log.d("API8","items "+items.size());
-        // Notify the adapter that the data set has changed.
-        notifyDataSetChanged();
-
-
-
+    public Planet getItem(int position) {
+        return planetList.get(position);
     }
 
+    public void setPlanetList(List<Planet> items) {
+        planetList.clear();
+        planetList.addAll(items);
+        Log.d("API8","items "+items.size());
+        // Notify the adapter that the data set has changed.
+        notifyDataSetChanged();
+    }
 
-    static class StarWarsViewHolder extends RecyclerView.ViewHolder {
-
-
+    class StarWarsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtPlanetName;
         TextView txtPlanetPopulation;
 
-
         StarWarsViewHolder(View itemView) {
             super(itemView);
-
             txtPlanetName = itemView.findViewById(R.id.planetName);
             txtPlanetPopulation = itemView.findViewById(R.id.planetPopulation);
-
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            if (mItemClickListener != null) mItemClickListener.onPlanetItemClick(view, getAdapterPosition());
+        }
+    }
+
+    public void setClickListener(StarWarsAdapter.ItemClickListener itemClickListener) {
+        this.mItemClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onPlanetItemClick(View view, int position);
     }
 }
