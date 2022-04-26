@@ -16,6 +16,8 @@ import com.zonal.starwars.model.DaoMaster;
 import com.zonal.starwars.model.Planet;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -85,5 +87,14 @@ public class StarWarsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public interface ItemClickListener {
         void onPlanetItemClick(View view, int position);
+    }
+
+    public void sortByName() {
+        Collections.sort(planetList, new Comparator<Planet>(){
+            public int compare(Planet planet1, Planet planet2){
+                return planet1.getName().compareTo(planet2.getName());
+            }
+        });
+        notifyDataSetChanged();
     }
 }

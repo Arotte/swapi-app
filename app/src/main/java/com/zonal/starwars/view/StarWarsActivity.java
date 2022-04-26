@@ -15,6 +15,8 @@ import com.zonal.starwars.planet_details.PlanetDetailsActivity;
 import com.zonal.starwars.presenter.StarWarsPresenter;
 import com.zonal.starwars.presenter.StarWarsPresenterImpl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -30,6 +32,7 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
         setContentView(R.layout.activity_starwars);
         recyclerView = findViewById(R.id.recyclerViewPlanets);
         setAdapter();
+        setSortButton();
 
         starWarsPresenter = new StarWarsPresenterImpl(this, this);
     }
@@ -53,5 +56,14 @@ public class StarWarsActivity extends AppCompatActivity implements StarWarsView,
         Intent intent = new Intent(StarWarsActivity.this, PlanetDetailsActivity.class);
         intent.putExtra("planetObject", starWarsAdapter.getItem(position));
         startActivity(intent);
+    }
+
+    private void setSortButton() {
+        findViewById(R.id.btn_planets_sort_by_name).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                starWarsAdapter.sortByName();
+            }
+        });
     }
 }
