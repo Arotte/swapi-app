@@ -1,23 +1,32 @@
 package com.zonal.starwars.planet_details;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.zonal.starwars.R;
 import com.zonal.starwars.model.Planet;
+import com.zonal.starwars.presenter.PlanetDetailsPresenter;
+import com.zonal.starwars.presenter.PlanetDetailsPresenterImpl;
+import com.zonal.starwars.view.PlanetDetailsView;
 
-public class PlanetDetailsActivity extends AppCompatActivity {
+public class PlanetDetailsActivity extends AppCompatActivity implements PlanetDetailsView {
 
     private Planet planet;
+    private PlanetDetailsPresenter planetDetailsPresenter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planet_details);
+
         getPlanetDetails();
         setView();
+
+        planetDetailsPresenter = new PlanetDetailsPresenterImpl(this, this);
     }
 
     private void getPlanetDetails() {
@@ -38,5 +47,24 @@ public class PlanetDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tv_planet_details_diameter)).setText(planet.getDiameter());
         ((TextView) findViewById(R.id.tv_planet_details_gravity)).setText(planet.getGravity());
         ((TextView) findViewById(R.id.tv_planet_details_population)).setText(planet.getPopulation());
+
+        if (swipeRefreshLayout == null)
+            swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.planet_details_swipe_refresh_layout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                planetDetailsPresenter.refreshPlanet(planet.getUrl());
+            }
+        });
+    }
+
+    @Override
+    public void setPlanet(Planet planet) {
+        this.planet = planet;
+        setView();
+
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(false);
     }
 }
