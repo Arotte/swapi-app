@@ -1,4 +1,4 @@
-Zonal Android Technical Assessment
+SWAPI App
 ==============================
 
 - [x] Add a way to view detail about an individual planet when tapping on an entry in the all planets list
